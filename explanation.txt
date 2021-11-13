@@ -1,6 +1,6 @@
 Another approach.
 
---Run the 2 queries to find the relevant data set to find the routes between 2 points
+--Run the 3 queries to find the relevant data set to find the routes between 2 points
 
 Example: ATQ to BLR
 
@@ -10,40 +10,52 @@ returns direct flight
     6845 ATQ BLR 1110 1415
 
 
-Query #2: SELECT f1.* from 
+Query #2: SELECT * FROM `flights` where from_code = 'ATQ' and to_code != 'BLR'
+    6261	ATQ	BOM	1010	1245
+    5926	ATQ	CCU	940	    1215
+    2057	ATQ	DEL	1050	1205
+    152	    ATQ	DEL	1545	1645
+    286	    ATQ	DEL	1545	1645
+    3274	ATQ	DEL	1615	1730
+    2167	ATQ	DEL	2200	2315
+    286	    ATQ	PNQ	1545	1935
+
+This set is the flights from ATQ to some other point other than BLR. 
+
+Query #3: SELECT f1.* from 
 ( SELECT * FROM `flights` where from_code = 'ATQ' and to_code != 'BLR' ) as tmp 
 inner join flights f1 ON tmp.to_code = f1.from_code
 where  f1.to_code = 'BLR'
-       5321	BOM	BLR	530	720
-        432	BOM	BLR	815	1010
-        5354 BOM BLR 1030	1215
-        283	BOM	BLR	1620	1805
-        199	BOM	BLR	1855	2040
-        128	BOM	BLR	2010	2155
-        406	BOM	BLR	2125	2310
-        6379 CCU BLR	450	725
-        825	CCU	BLR	615	900
-        139	CCU	BLR	720	1005
-        6143 CCU BLR 945	1240
-        434	CCU	BLR	1145	1425
-        6814 CCU BLR 1340	1625
-        932	CCU	BLR	1610	1855
-        875	CCU	BLR	1805	2035
-        939	CCU	BLR	1920	2205
-        328	CCU	BLR	2345	230
-        2162	DEL	BLR	500	740	
-        2175	DEL	BLR	700	945	
-        2297	DEL	BLR	955	1240
+       5321	    BOM	BLR	530	    720
+        432	    BOM	BLR	815	    1010
+        5354    BOM BLR 1030	1215
+        283	    BOM	BLR	1620	1805
+        199	    BOM	BLR	1855	2040
+        128	    BOM	BLR	2010	2155
+        406	    BOM	BLR	2125	2310
+        6379    CCU BLR	450	    725
+        825	    CCU	BLR	615	    900
+        139	    CCU	BLR	720	    1005
+        6143    CCU BLR 945	    1240
+        434	    CCU	BLR	1145	1425
+        6814    CCU BLR 1340	1625
+        932	    CCU	BLR	1610	1855
+        875	    CCU	BLR	1805	2035
+        939	    CCU	BLR	1920	2205
+        328	    CCU	BLR	2345	230
+        2162	DEL	BLR	500	    740	
+        2175	DEL	BLR	700	    945	
+        2297	DEL	BLR	955	    1240
         2423	DEL	BLR	1400	1640																					
-        819	DEL	BLR	1410	1655																					
+        819	    DEL	BLR	1410	1655																					
         2018	DEL	BLR	1515	1815																					
         2248	DEL	BLR	1620	1920																					
         2027	DEL	BLR	1745	2030																					
         2637	DEL	BLR	1905	2205																					
         2134	DEL	BLR	2110	10																					
         2429	DEL	BLR	2230	115																					
-        954	PNQ	BLR	900	1025																					
-        319	PNQ	BLR	1600	1735																					
-        103	PNQ	BLR	1935	2115		
+        954	    PNQ	BLR	900	    1025																					
+        319	    PNQ	BLR	1600	1735																					
+        103	    PNQ	BLR	1935	2115		
 
 This a set of the connecting flights. 	With this set we could write the logic to get the fastest routes.	
