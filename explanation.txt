@@ -26,6 +26,8 @@ Query #3: SELECT f1.* from
 ( SELECT * FROM `flights` where from_code = 'ATQ' and to_code != 'BLR' ) as tmp 
 inner join flights f1 ON tmp.to_code = f1.from_code
 where  f1.to_code = 'BLR'
+GROUP BY f1.flight_no
+
        5321	    BOM	BLR	530	    720
         432	    BOM	BLR	815	    1010
         5354    BOM BLR 1030	1215
