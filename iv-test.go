@@ -138,9 +138,6 @@ func getSchedule(data []ScheduleRecord, src string) []ScheduleRecord {
 
 }
 
-https://github.com/faizbepari19/mmt-test.git
-
-
 func getConnectingFlight(data []ScheduleRecord, src string, dest string) (ScheduleRecord, error) {
 	for _, schedule := range data {
 		if schedule.From == src && schedule.To == dest {
